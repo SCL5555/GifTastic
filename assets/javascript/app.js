@@ -1,7 +1,3 @@
-//api key   emsfw3t3bTSlCkCzKVf7VxyTKZoGQqlK
-//buttonDiv
-//gifDiv
-//submitButton id
 
 var topics = ["dogs", "kittens", "penguin", "polar bear", "elephant", "giraffe", "minions"];
 
@@ -10,8 +6,8 @@ function renderButtons(){
 
 	for(var i = 0; i < topics.length; i++){
 		var a = $("<button>");
-		a.attr("data-topic", topics[i]);
-		a.addClass("topic");
+		a.attr("data-topic", topics[i]).attr("type", "button");
+		a.addClass("topic btn btn-outline-info");
 		a.text(topics[i]);
 		$(".buttonDiv").append(a);
 	}
@@ -19,15 +15,13 @@ function renderButtons(){
 
 $(document).on("click", "#submitButton", function(event){
 	event.preventDefault();
-
 	var topic = $("#animalAdd").val().trim();
 	topics.push(topic);
 	renderButtons();
+	$("#animalAdd").val("");
 });
 
 renderButtons();
-
-
 
 
 $(document).on("click", ".topic", function(){
@@ -44,7 +38,7 @@ $(document).on("click", ".topic", function(){
     	var results = response.data;
 
     	for( var i = 0; i < results.length; i++){
-    		var gifDiv = $("<div>");
+    		var gifDiv = $("<div>").addClass("col-md");
     		var rating = results[i].rating;
     		var p = $("<p>").text("Rating: " + rating);
     		var animalImage = $("<img>");
@@ -53,17 +47,11 @@ $(document).on("click", ".topic", function(){
     		animalImage.attr("src", results[i].images.fixed_height_still.url);
     		animalImage.attr("data-state", "still");
     		animalImage.addClass("gif");
-
     		gifDiv.append(p);
     		gifDiv.append(animalImage);
-
     		$(".gifDiv").append(gifDiv);
-    		// $(".gifDiv").append(p);
-    		// $(".gifDiv").append(animalImage);
     	}
     });
-
-
 });
 
 
